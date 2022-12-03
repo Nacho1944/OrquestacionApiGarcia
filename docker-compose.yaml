@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+    php-apache-environment:
+        container_name: reticula
+        build:
+            context: ./src
+            dockerfile: DockerFile
+        depends_on:
+            - db
+        volumes:
+            - ./src:/var/www/html/
+        ports:
+            - 6060:80
+    db:
+      container_name: base_de_datos_materias
+      image: mysql
+      restart: always
+      environment:
+          MYSQL_ROOT_PASSWORD: "nacho10" 
+          MYSQL_DATABASE: "reticula"
+          MYSQL_USER: "nacho"
+          MYSQL_PASSWORD: "nacho10"
+      ports:
+        - "9906:3306"
